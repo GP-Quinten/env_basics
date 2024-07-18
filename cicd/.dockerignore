@@ -1,0 +1,8 @@
+notebooks/*
+*.csv
+*.zip
+build.sh
+run_test.sh
+.pytest_cache
+.git
+venv

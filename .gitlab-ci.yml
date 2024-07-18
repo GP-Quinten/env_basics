@@ -1,0 +1,41 @@
+image: python:3.10-slim
+
+stages:
+  - test
+  - deploy
+
+before_script:
+  - python --version
+  - pip install --upgrade pip
+
+test-job:
+  stage: test
+  allow_failure: false
+  script:
+    - pip install -r requirements.txt
+  #  - PYTHONPATH=. pytest tests/ -vv
+    - PYTHONPATH=. pytest --cov-config=.coveragerc --cov=src/ --junitxml=test_report.xml tests/ -vv
+    - coverage report
+    - coverage xml -o test_coverage.xml
+  # artifacts:
+  #   when: always
+  #   paths:
+  #     - test_report.xml
+  #     - test_coverage.xml
+  #   reports:
+  #     junit: test_report.xml
+      # coverage_report:
+      #   format: cobertura
+      #   path: test_coverage.xml
+
+deploy-job:
+  stage: deploy
+  variables:
+    USER_PROD: admin  # Use Gitlab secrets for this
+    USER_PASSWORD: admin # Use gitlab secrets for this
+  script:
+    - echo "Nothing to deploy!!"
+  # only:
+  #   - tags
+  # except:
+  #   - branches

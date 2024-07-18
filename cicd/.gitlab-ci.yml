@@ -1,0 +1,51 @@
+variables:
+  GIT_STRATEGY: clone
+  GIT_SUBMODULE_STRATEGY: recursive
+
+image: docker:stable
+
+stages:
+  - build
+  - run_tests
+  - push
+  - release
+
+build:
+  stage: build
+  only:
+    - master
+#  before_script:
+  # TODO: inject secrets
+  script:
+    - cd cicd
+    - bash build.sh
+
+run_tests:
+  stage: run_tests
+  only:
+    - master
+#  before_script:
+  # TODO: inject secrets
+  script:
+    - cd cicd
+    - bash run_test.sh
+
+push:
+  stage: push
+  only:
+    - master
+#  before_script:
+  # TODO: inject secrets
+  script:
+    - cd cicd
+    - bash push.sh
+
+release:
+  stage: release
+  only:
+    - tags
+#  before_script:
+  # TODO: inject secrets
+  script:
+    - cd cicd
+    - bash release.sh

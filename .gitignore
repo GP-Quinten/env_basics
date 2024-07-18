@@ -1,0 +1,7 @@
+notebooks/.ipynb_checkpoints/*
+notebooks/
+*/ipynb_checkpoints/*
+.ipynb_checkpoints/
+secrets
+*/__pycache__/*
+.vscode/
